@@ -22,3 +22,6 @@ jobs:
     
       - name: deploy
         run: python app.py
+
+      - name: terminate
+        run: pkill -f app.py      
