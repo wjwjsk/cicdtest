@@ -1,3 +1,3 @@
 # cicdtest
 
-리드미 수정
+ci/cd테스트
