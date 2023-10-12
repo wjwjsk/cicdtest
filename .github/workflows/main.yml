@@ -1,13 +1,13 @@
 name: cicd_test
 
-on: 
+on:
   push:
     branches:
       - main
 
   pull_request:
     branches:
-      - main 
+      - main
 
 jobs:
   build:
@@ -16,12 +16,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-    
+
       - name: build
         run: pip install -r requirements.txt
-    
+
       - name: deploy
-        run: python app.py
+        run: |
+          python app.py &
+          echo $! > app_pid.txt
 
       - name: terminate
-        run: pkill -f app.py      
+        run: kill $(cat app_pid.txt)
+        if: always()
