@@ -26,5 +26,7 @@ jobs:
           echo $! > app_pid.txt
 
       - name: terminate
-        run: kill $(cat app_pid.txt)
-        if: always()
+        run: |
+          if [ ${{ job.status }} != 'success' ]; then
+            kill $(cat app_pid.txt)
+          fi
